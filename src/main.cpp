@@ -1,40 +1,36 @@
 #include <Arduino.h>
 
-/* this function will be invoked when additionalTask was created */
-void anotherTask( void * parameter )
-{
-  /* loop forever */
-  for(;;)
+void ledoff(void * parameter)
   {
-    Serial.println("this is another Task");
-    delay(1000);
-  }
-
-  /* delete a task when finish,
-  this will never happen because this is infinity loop */
-  vTaskDelete( NULL );
+    bool t=false;
+  /* loop forever */
+  for(;;){
+    //if(t){
+    digitalWrite(14,LOW);
+    Serial.println("apagado");
+    delay (500);
+    }
+  //  else t=true;
+  //}
 }
 
 void setup()
 {
   Serial.begin(112500);
-
-  /* we create a new task here */
-  xTaskCreate
-  (
-    anotherTask, /* Task function. */
-    "another Task", /* name of task. */
-    10000, /* Stack size of task */
-    NULL, /* parameter of the task */
-    1, /* priority of the task */
-    NULL /* Task handle to keep track of created task */
-  );
+  pinMode(14,OUTPUT);
+  xTaskCreate(
+  ledoff, 
+  "apaga el led",
+  10000, /* Stack size of task */
+  NULL, /* parameter of the task */
+  1, /* priority of the task */
+  NULL); /* Task handle to keep track of created task */
 }
-
-/* the forever loop() function is invoked by Arduino ESP32 loopTask */
 void loop()
 {
-  Serial.println("this is ESP32 Task");
-  delay(1000);
-}
+  digitalWrite(14,HIGH);
+    Serial.println("encendido");
 
+  delay(1000);
+
+}
