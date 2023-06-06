@@ -44,6 +44,8 @@ Explicación: Crea una tarea independiente de FreeRTOS donde realiza un loop de 
 ## Ejercicio Práctico 2
 
 ```cpp
+#include <Arduino.h>
+
 //Tarea de encender
 void encenderTask(void * parameter)
 {
